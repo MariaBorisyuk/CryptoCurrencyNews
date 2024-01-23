@@ -1,0 +1,40 @@
+<script>
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === (name + "=")) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+    async function main()
+    {
+        let response = await fetch('http://127.0.0.1:8000/api/crypto_currency/');
+        let data = await response.json();
+        for (let currency of data)
+        {
+            let currency_block = document.createElement('p');
+            currency_block.textContent = currency.name;
+            currency_block.id = currency.id;
+            let delete_button = document.createElement('span');
+            delete_button.textContent = ' x';
+            delete_button.style.color = 'red';
+            delete_button.addEventListener('click', async (event) =>
+            {
+                await fetch('http://127.0.0.1:8000/api/crypto_currency/'+currency.id+'/',{method: 'DELETE', headers:{'X-CSRFToken': getCookie('csrftoken')}});
+                event.target.parentElement.remove();
+            });
+            currency_block.append(delete_button);
+            document.body.append(currency_block);
+        }
+    }
+
+    main();
+</script>

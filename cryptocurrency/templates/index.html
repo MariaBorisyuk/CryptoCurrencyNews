@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <ul>
+             {% for data in news_data %}
+                <li>
+                    <a href = '/news/{{ data.currencies__id }}/'>  {{data.currencies__name}} </a> - {{data.news_count}}
+                </li>
+             {% endfor %}
+        </ul>
+    </body>
+</html>

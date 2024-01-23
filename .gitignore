@@ -1,0 +1,9 @@
+.env
+*.sqlite3
+*.session
+*.session-journal
+logs/*.log
+**/migrations/
+!**/migrations/__init__.py
+.DS_Store
+**/__pycache__/
